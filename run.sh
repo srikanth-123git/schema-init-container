@@ -8,5 +8,7 @@ if [ "${db_type}" == 'mongo' ]; then
 fi
 
 if [ "${db_type}" == 'mysql' ]; then
+  echo 'show databases;' | mysql -h${DB_HOST} -u${RDS_USER} -p${RDS_PASS} | grep cities
+  if [ $? -eq 0 ]; then exit ; fi
   mysql -h${DB_HOST} -u${RDS_USER} -p${RDS_PASS} <schema/${COMPONENT}.sql
 fi
